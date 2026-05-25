@@ -2,6 +2,7 @@
 
 Implementation of the Transformer architecture from scratch in PyTorch, trained on the Multi30k German→English dataset.
 
+
 > **W&B Report:** [https://wandb.ai/ashishmeshram229-indian-institute-of-technology-madras/da6401-assignment-3/reports/DA6401-Assignment-3-Transformer-NMT-Experiments-Analysis--VmlldzoxNjk3MTIxNg?accessToken=50wmrc2383rwrmk10na4x8hyzsl9euiurtzmljg3mt5z78y7e5ehn6ncvbqqdcj2]()
 
 ---
@@ -68,7 +69,9 @@ da6401_assignment_3/
 
 Attention is implemented as:
 
-$$\text{Attention}(Q, K, V) = \text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V$$
+```
+Attention(Q, K, V) = softmax( Q·Kᵀ / sqrt(d_k) ) · V
+```
 
 Multi-head attention projects Q, K, V into `num_heads` subspaces, computes attention in parallel, and concatenates the results. Both padding masks (for encoder/decoder) and causal look-ahead masks (for the decoder) are implemented. `torch.nn.MultiheadAttention` is not used.
 
@@ -76,18 +79,25 @@ Multi-head attention projects Q, K, V into `num_heads` subspaces, computes atten
 
 Sinusoidal positional encoding:
 
-$$PE_{(pos,\,2i)} = \sin\!\left(\frac{pos}{10000^{2i/d_{model}}}\right), \quad PE_{(pos,\,2i+1)} = \cos\!\left(\frac{pos}{10000^{2i/d_{model}}}\right)$$
+```
+PE(pos, 2i)   = sin( pos / 10000^(2i / d_model) )
+PE(pos, 2i+1) = cos( pos / 10000^(2i / d_model) )
+```
 
 Post-LayerNorm is used (as in the original paper). The point-wise FFN is:
 
-$$\text{FFN}(x) = \max(0,\; xW_1 + b_1)\,W_2 + b_2$$
+```
+FFN(x) = max(0, x·W1 + b1) · W2 + b2
+```
 
 ### Task 3 — Training Pipeline
 
 - **Label Smoothing:** ε = 0.1, implemented as a custom loss that redistributes probability mass uniformly.
 - **Noam Scheduler:**
 
-$$\text{lrate} = d_{model}^{-0.5} \cdot \min\!\left(\text{step}^{-0.5},\; \text{step} \cdot \text{warmup\_steps}^{-1.5}\right)$$
+```
+lrate = d_model^(-0.5) * min(step^(-0.5), step * warmup_steps^(-1.5))
+```
 
 - **Greedy Decoding:** Inference generates tokens one at a time using argmax at each step until `<eos>` or `decode_max_len=80`.
 
