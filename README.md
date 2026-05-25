@@ -3,8 +3,7 @@
 Implementation of the Transformer architecture from scratch in PyTorch, trained on the Multi30k German→English dataset.
 
 
-> **W&B Report:** [https://wandb.ai/ashishmeshram229-indian-institute-of-technology-madras/da6401-assignment-3/reports/DA6401-Assignment-3-Transformer-NMT-Experiments-Analysis--VmlldzoxNjk3MTIxNg?accessToken=50wmrc2383rwrmk10na4x8hyzsl9euiurtzmljg3mt5z78y7e5ehn6ncvbqqdcj2]()
-
+> **W&B Report:** [Click here to view](https://wandb.ai/ashishmeshram229-indian-institute-of-technology-madras/da6401-assignment-3/reports/DA6401-Assignment-3-Transformer-NMT-Experiments-Analysis--VmlldzoxNjk3MTIxNg?accessToken=50wmrc2383rwrmk10na4x8hyzsl9euiurtzmljg3mt5z78y7e5ehn6ncvbqqdcj2)
 ---
 
 ## Overview
